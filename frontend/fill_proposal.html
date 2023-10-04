@@ -13,7 +13,7 @@
 
     <div class="container">
         <!-- Barra de navegação superior -->
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary ">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Navbar</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -58,6 +58,17 @@
         <!-- Título e número da proposta -->
         <div class="mb-4  text-center">
             <h3>Proposta JLS20231004-1</h3>
+            <div class="input-group mx-auto w-25">
+                <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                <select class="form-select" id="inputGroupSelect01">
+                    <option selected>escolha...</option>
+                    <option value="1">Edição</option>
+                    <option value="2">Enviada</option>
+                    <option value="3">Acompanhamento</option>
+                    <option value="4">Proposta ganha</option>
+                    <option value="5">Proposta perdida</option>
+                </select>
+            </div>
         </div>
 
         <!-- Dados do cliente -->
@@ -99,28 +110,33 @@
                     placeholder="1">
             </div>
             <div class="input-group w-50 m-1">
-                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Valor unitário</span>
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Unidade</span>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
+                    placeholder="un">
+            </div>
+            <div class="input-group w-50 m-1">
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">R$ unitário</span>
                 <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
                     placeholder="1.00">
             </div>
             <div class="input-group w-50 m-1">
-                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Valor total</span>
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">R$ total</span>
                 <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
                     placeholder="1.00">
             </div>
             <div class="input-group w-50 m-1">
-                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Prazo de Entrega</span>
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Entrega</span>
                 <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
                     placeholder="30dd">
             </div>
         </div>
 
         <!-- Dados das condições comerciais -->
-        <div class="mb-3 border border-3 rounded-4 bg-primary-subtle border-primary-subtle p-4">
-            <label for="basic-url" class="form-label">Condições Comerciais</label>
+        <div class="mb-3 border border-3 rounded-4 bg-primary-subtle border-primary-subtle p-4 ">
+            <label for="basic-url" class="form-label h4">Condições Comerciais</label>
             <div class="input-group w-50 m-1">
                 <span class="input-group-text" id="basic-addon3" style="width: 100px;">Validade</span>
-                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
+                <input type="date" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
                     placeholder="xx/xx/xxxx">
             </div>
             <div class="input-group w-50 m-1">
@@ -136,7 +152,8 @@
             <div class="input-group w-50 m-1">
                 <span class="input-group-text" id="basic-addon3" style="width: 100px;">Impostos</span>
                 <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
-                    placeholder="inclusos, fornecedor optante pelo Simples Nacional">
+                    placeholder="inclusos, fornecedor optante pelo Simples Nacional"
+                    value="inclusos, fornecedor optante pelo Simples Nacional">
             </div>
         </div>
 
