@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Preencher Proposta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Barra de navegação superior -->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Título e número da proposta -->
+        <div class="mb-4  text-center">
+            <h3>Proposta JLS20231004-1</h3>
+        </div>
+
+        <!-- Dados do cliente -->
+        <div class="mb-4 border border-3 rounded-4 bg-primary-subtle border-primary-subtle p-4">
+            <label for="basic-url" class="form-label h4">Dados do cliente</label>
+            <div class="input-group  m-1">
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Nome</span>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
+                    placeholder="Nome do cliente">
+            </div>
+            <div class="input-group w-50 m-1">
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Email</span>
+                <input type="email" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
+                    placeholder="email@email.com">
+            </div>
+            <div class="input-group w-50 m-1">
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Telefone</span>
+                <input type="tel" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
+                    placeholder="(xx) xxxxx-xxxx">
+            </div>
+            <div class="input-group w-50 m-1">
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Empresa</span>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
+                    placeholder="XYZ Ltda">
+            </div>
+        </div>
+
+        <!-- Dados dos itens da proposta -->
+        <div class="mb-4 border border-3 rounded-4 bg-primary-subtle border-primary-subtle p-4">
+            <label for="basic-url" class="form-label h4">Produtos/Serviços</label>
+            <div class="input-group w-50 m-1">
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Produto</span>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
+                    placeholder="Descrição">
+            </div>
+            <div class="input-group w-50 m-1">
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Quantidade</span>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
+                    placeholder="1">
+            </div>
+            <div class="input-group w-50 m-1">
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Valor unitário</span>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
+                    placeholder="1.00">
+            </div>
+            <div class="input-group w-50 m-1">
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Valor total</span>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
+                    placeholder="1.00">
+            </div>
+            <div class="input-group w-50 m-1">
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Prazo de Entrega</span>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
+                    placeholder="30dd">
+            </div>
+        </div>
+
+        <!-- Dados das condições comerciais -->
+        <div class="mb-3 border border-3 rounded-4 bg-primary-subtle border-primary-subtle p-4">
+            <label for="basic-url" class="form-label">Condições Comerciais</label>
+            <div class="input-group w-50 m-1">
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Validade</span>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
+                    placeholder="xx/xx/xxxx">
+            </div>
+            <div class="input-group w-50 m-1">
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Pagamento</span>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
+                    placeholder="a vista antecipado">
+            </div>
+            <div class="input-group w-50 m-1">
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Frete</span>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
+                    placeholder="incluso CIF Rodoviário">
+            </div>
+            <div class="input-group w-50 m-1">
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">Impostos</span>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
+                    placeholder="inclusos, fornecedor optante pelo Simples Nacional">
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
