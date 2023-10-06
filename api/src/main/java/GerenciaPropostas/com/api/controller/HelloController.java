@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 	@GetMapping
 	public String HelloWorld() {
-		return "hello world!";
+		return "O servidor do Gerenciador de Propostas está funcionando";
 	}
 }
