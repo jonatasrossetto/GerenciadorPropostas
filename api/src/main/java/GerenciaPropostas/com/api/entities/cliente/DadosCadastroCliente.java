@@ -1,5 +1,23 @@
 package GerenciaPropostas.com.api.entities.cliente;
 
-public record DadosCadastroCliente(String nome, String email, String telefone, String empresa) {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
+public record DadosCadastroCliente(
+		
+		@NotBlank
+		String nome,
+		
+		@NotBlank
+		@Email
+		String email, 
+		
+		@NotBlank
+		String telefone, 
+		
+		@NotBlank
+		String empresa
+		
+		) {
+	
 }
