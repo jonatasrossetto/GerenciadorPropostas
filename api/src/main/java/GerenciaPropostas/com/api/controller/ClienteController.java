@@ -1,11 +1,9 @@
 package GerenciaPropostas.com.api.controller;
 
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
-import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,8 +34,8 @@ public class ClienteController {
 	}
 	
 	@GetMapping
-	public List<DadosListagemCliente> listar() {
-		return repository.findAll().stream().map(DadosListagemCliente::new).toList();
+	public Page<DadosListagemCliente> listar(Pageable paginacao) {
+		return repository.findAll(paginacao).map(DadosListagemCliente::new);
 	}
 	
 }
