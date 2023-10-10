@@ -34,8 +34,10 @@ public class ClienteController {
 	}
 	
 	@GetMapping
-	public Page<DadosListagemCliente> listar(Pageable paginacao) {
+	public Page<DadosListagemCliente> listar(@PageableDefault(size = 10,
+			sort = {"nome"}) Pageable paginacao) {
 		return repository.findAll(paginacao).map(DadosListagemCliente::new);
+//		exemplo de query: http://localhost:8080/clientes?size=2
 	}
 	
 }
