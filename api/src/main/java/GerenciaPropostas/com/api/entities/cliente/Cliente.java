@@ -35,6 +35,21 @@ public class Cliente {
 		this.telefone = dados.telefone();
 		this.empresa = dados.empresa();
 	}
+	
+	public void atualizarInformacoes(DadosAtualizacaoCliente dados) {
+		if (dados.nome() != null ) {
+			this.nome = dados.nome();
+		}
+		if(dados.email() !=null) {
+			this.email=dados.email();
+		}
+		if(dados.telefone() !=null) {
+			this.telefone=dados.telefone();
+		}
+		if(dados.empresa() !=null) {
+			this.empresa=dados.empresa();
+		}
+	}
 
 	public Long getId() {
 		return id;
