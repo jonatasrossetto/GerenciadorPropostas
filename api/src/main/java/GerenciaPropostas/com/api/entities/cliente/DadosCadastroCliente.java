@@ -5,17 +5,17 @@ import jakarta.validation.constraints.NotBlank;
 
 public record DadosCadastroCliente(
 		
-		@NotBlank
+		@NotBlank(message="Nome é obrigatório")
 		String nome,
 		
-		@NotBlank
-		@Email
+		@NotBlank(message="E-mail é obrigatório")
+		@Email(message="Formato do e-mail é inválido")
 		String email, 
 		
-		@NotBlank
+		@NotBlank(message="Telefone é obrigatório")
 		String telefone, 
 		
-		@NotBlank
+		@NotBlank(message="Empresa é obrigatório")
 		String empresa
 		
 		) {
