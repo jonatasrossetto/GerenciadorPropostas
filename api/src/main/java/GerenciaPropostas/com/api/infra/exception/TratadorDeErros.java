@@ -1,4 +1,4 @@
-package GerenciaPropostas.com.api.infra;
+package GerenciaPropostas.com.api.infra.exception;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 
