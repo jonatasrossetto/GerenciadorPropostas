@@ -3,9 +3,13 @@ package GerenciaPropostas.com.api.entities.usuario;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,7 +41,7 @@ public class Usuario implements UserDetails {
 	
 	@NotBlank
 	private String tipo="user";
-
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
@@ -91,6 +95,16 @@ public class Usuario implements UserDetails {
 	public String getTipo() {
 		return this.tipo;
 	}
+
+	public Usuario(DadosCadastroUsuario dados) {
+		
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		this.login = dados.login();
+		this.senha = passwordEncoder.encode(dados.senha());
+		this.tipo = dados.tipo();
+	}
+	
+	
 	
 	
 }
