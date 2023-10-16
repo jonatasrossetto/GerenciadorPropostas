@@ -14,7 +14,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
 
@@ -29,12 +28,12 @@ public class SecurityFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		System.out.println("** doFilterInternal **");
 		var tokenJWT = recuperarToken(request);
-		System.out.println("*tokenJWT: "+tokenJWT);
+		System.out.println("*tokenJWT: " + tokenJWT);
 		if (tokenJWT != null) {
 			var subject = tokenService.getSubject(tokenJWT);
-			System.out.println("*JWT Subject: "+subject);
+			System.out.println("*JWT Subject: " + subject);
 			var usuario = repository.findByLogin(subject);
-			System.out.println("3:"+usuario);
+			System.out.println("3:" + usuario);
 			var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
 			System.out.println("4");
 			SecurityContextHolder.getContext().setAuthentication(authentication);

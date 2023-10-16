@@ -1,6 +1,5 @@
 package GerenciaPropostas.com.api.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,32 +32,32 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
-	
+
 	@Autowired
 	private ClienteRepository repository;
-	
+
 	@Autowired
 	TokenService tokenService;
-	
+
 	@PostMapping
 	@Transactional
 	public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroCliente dados, UriComponentsBuilder uriBuilder) {
 		var cliente = new Cliente(dados);
 		repository.save(cliente);
-		System.out.println("id cadastrado:"+cliente.getId());
+		System.out.println("id cadastrado:" + cliente.getId());
 		var uri = uriBuilder.path("/clientes/{id}").buildAndExpand(cliente.getId()).toUri();
 		return ResponseEntity.created(uri).body(new DadosDetalhamentoCliente(cliente));
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<Page<DadosListagemCliente>> listar(@PageableDefault(size = 10,
-			sort = {"nome"}) Pageable paginacao) {
-		var page =repository.findAll(paginacao).map(DadosListagemCliente::new); 
+	public ResponseEntity<Page<DadosListagemCliente>> listar(
+			@PageableDefault(size = 10, sort = { "nome" }) Pageable paginacao) {
+		var page = repository.findAll(paginacao).map(DadosListagemCliente::new);
 		return ResponseEntity.ok(page);
 //		exemplo de query: http://localhost:8080/clientes?size=2 ?sort=crm,desc&size=2&page=1
 //		exemplo de query: http://localhost:8080/clientes?sort=nome,desc&size=2&page=1
 	}
-	
+
 	@PutMapping
 	@Transactional
 	public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoCliente dados) {
@@ -66,23 +65,23 @@ public class ClienteController {
 		cliente.atualizarInformacoes(dados);
 		return ResponseEntity.ok(new DadosDetalhamentoCliente(cliente));
 	}
-	
+
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity excluir(@PathVariable Long id) {
-		System.out.println("existe o id:"+id+"? "+repository.existsById(id));
+		System.out.println("existe o id:" + id + "? " + repository.existsById(id));
 		repository.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity detalhar(@PathVariable Long id, @RequestHeader HttpHeaders headers  ) {
+	public ResponseEntity detalhar(@PathVariable Long id, @RequestHeader HttpHeaders headers) {
 		System.out.println("**Detalhar Cliente");
 		var authorization = headers.getFirst(HttpHeaders.AUTHORIZATION).replace("Bearer ", "");
-		System.out.println("*jwt token: "+authorization);
+		System.out.println("*jwt token: " + authorization);
 		System.out.println(tokenService.getSubject(authorization));
 		Cliente cliente = repository.getReferenceById(id);
 		return ResponseEntity.ok(new DadosDetalhamentoCliente(cliente));
 	}
-	
+
 }
