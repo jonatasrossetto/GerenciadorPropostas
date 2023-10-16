@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriBuilder;
@@ -23,6 +25,8 @@ import GerenciaPropostas.com.api.entities.cliente.DadosAtualizacaoCliente;
 import GerenciaPropostas.com.api.entities.cliente.DadosCadastroCliente;
 import GerenciaPropostas.com.api.entities.cliente.DadosDetalhamentoCliente;
 import GerenciaPropostas.com.api.entities.cliente.DadosListagemCliente;
+import GerenciaPropostas.com.api.infra.security.TokenService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -32,6 +36,9 @@ public class ClienteController {
 	
 	@Autowired
 	private ClienteRepository repository;
+	
+	@Autowired
+	TokenService tokenService;
 	
 	@PostMapping
 	@Transactional
@@ -69,7 +76,11 @@ public class ClienteController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity detalhar(@PathVariable Long id) {
+	public ResponseEntity detalhar(@PathVariable Long id, @RequestHeader HttpHeaders headers  ) {
+		System.out.println("**Detalhar Cliente");
+		var authorization = headers.getFirst(HttpHeaders.AUTHORIZATION).replace("Bearer ", "");
+		System.out.println("*jwt token: "+authorization);
+		System.out.println(tokenService.getSubject(authorization));
 		Cliente cliente = repository.getReferenceById(id);
 		return ResponseEntity.ok(new DadosDetalhamentoCliente(cliente));
 	}

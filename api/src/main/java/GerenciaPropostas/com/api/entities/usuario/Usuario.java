@@ -96,6 +96,10 @@ public class Usuario implements UserDetails {
 		return this.tipo;
 	}
 
+	public Usuario() {
+		
+	}
+	
 	public Usuario(DadosCadastroUsuario dados) {
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

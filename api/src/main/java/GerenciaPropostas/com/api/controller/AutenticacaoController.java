@@ -28,10 +28,20 @@ public class AutenticacaoController {
 	
 	@PostMapping
 	public ResponseEntity efetuarLogin(@RequestBody @Valid  DadosAutenticacao dados) {
-		var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
-		var authentication = manager.authenticate(authenticationToken);
-		var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
-		return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
+		try {
+			System.out.println("login: "+dados.login()+" senha: "+dados.senha());
+			var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+			System.out.println("authenticationToken: "+ authenticationToken);
+			var authentication = manager.authenticate(authenticationToken);
+			System.out.println("authentication: "+authentication);
+			var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
+			return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));	
+		} catch(Exception e) {
+			System.out.println("** ALGUMA COISA DEU ERRADO ** ");
+			e.printStackTrace();
+			return ResponseEntity.badRequest().build();
+			}
+		
 //		return ResponseEntity.ok().body("funcionou!!");
 	}
 	
