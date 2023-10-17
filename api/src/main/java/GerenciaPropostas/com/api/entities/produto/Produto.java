@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class Produto {
 	private long id;
 	private long idUsuario;
 	private String descricao;
+	
 	private String unidade;
 	private BigDecimal valorUnitarioTabela;
 	
@@ -31,6 +33,13 @@ public class Produto {
 		
 	}
 
+	public Produto(DadosCadastroProduto dados) {
+		this.idUsuario = dados.idUsuario();
+		this.descricao = dados.descricao();
+		this.unidade = dados.unidade();
+		this.valorUnitarioTabela = dados.valorUnitarioTabela();
+	}
+	
 	public long getId() {
 		return id;
 	}
