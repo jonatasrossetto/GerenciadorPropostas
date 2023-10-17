@@ -1,5 +1,4 @@
 package GerenciaPropostas.com.api.infra.security;
-
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
 
@@ -26,14 +26,15 @@ public class SecurityFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		System.out.println("** doFilterInternal **");
+		System.out.println("chamando o filter");
 		var tokenJWT = recuperarToken(request);
-		System.out.println("*tokenJWT: " + tokenJWT);
+		System.out.println(tokenJWT);
 		if (tokenJWT != null) {
+			System.out.println("1");
 			var subject = tokenService.getSubject(tokenJWT);
-			System.out.println("*JWT Subject: " + subject);
+			System.out.println("2");
 			var usuario = repository.findByLogin(subject);
-			System.out.println("3:" + usuario);
+			System.out.println("3");
 			var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
 			System.out.println("4");
 			SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -44,6 +45,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
 	private String recuperarToken(HttpServletRequest request) {
 		var authorizationHeader = request.getHeader("Authorization");
+		System.out.println(authorizationHeader);
 		if (authorizationHeader != null) {
 			return authorizationHeader.replace("Bearer ", "");
 		}
