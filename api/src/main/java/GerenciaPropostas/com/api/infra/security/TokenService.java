@@ -38,6 +38,15 @@ public class TokenService {
 			throw new RuntimeException("token JWT inválido ou expirado", exception);
 		}
 	}
+	
+	public String getId(String tokenJWT) {
+		try {
+			var algoritmo = Algorithm.HMAC256(secret);
+			return JWT.require(algoritmo).withIssuer("API GerenciaProposta").build().verify(tokenJWT).getClaim("id").toString();
+		} catch (JWTVerificationException exception) {
+			throw new RuntimeException("token JWT inválido ou expirado", exception);
+		}
+	}
 
 	private Instant dataExpiracao() {
 		// TODO Auto-generated method stub

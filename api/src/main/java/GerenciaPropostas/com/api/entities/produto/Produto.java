@@ -34,12 +34,16 @@ public class Produto {
 	}
 
 	public Produto(DadosCadastroProduto dados) {
-		this.idUsuario = dados.idUsuario();
+		this.idUsuario = 0;
 		this.descricao = dados.descricao();
 		this.unidade = dados.unidade();
 		this.valorUnitarioTabela = dados.valorUnitarioTabela();
 	}
 	
+	public void setIdUsuario(long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
 	public long getId() {
 		return id;
 	}
