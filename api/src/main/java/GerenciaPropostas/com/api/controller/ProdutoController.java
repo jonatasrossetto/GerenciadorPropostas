@@ -10,11 +10,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import GerenciaPropostas.com.api.entities.cliente.DadosAtualizacaoCliente;
+import GerenciaPropostas.com.api.entities.cliente.DadosDetalhamentoCliente;
 import GerenciaPropostas.com.api.entities.cliente.DadosListagemCliente;
 import GerenciaPropostas.com.api.entities.produto.DadosCadastroProduto;
 import GerenciaPropostas.com.api.entities.produto.DadosListagemProduto;
@@ -54,19 +57,28 @@ public class ProdutoController {
 		Usuario usuario =  usuarioRepository.getReferenceById(Long.parseLong(idUsuario));
 		System.out.println("login: "+usuario.getLogin());
 		var produto = new Produto(dados);
-		produto.setIdUsuario(Long.parseLong(idUsuario));
+		produto.setUsuario(Long.parseLong(idUsuario));
 		repository.save(produto);
 		System.out.println("id cadastrado:"+produto.getId());
 		return ResponseEntity.ok().build();
 	}
 	
 	@GetMapping
-	public ResponseEntity<Page<DadosListagemProduto>> listar(
-			@PageableDefault(size = 10, sort = { "descricao" }) Pageable paginacao) {
-		var page = repository.findAll(paginacao).map(DadosListagemProduto::new);
+	public ResponseEntity listar(@RequestHeader HttpHeaders headers) {
+		//!!!!!!!!
+		//precisa verificar como paginar o retorno da listagem
+		//!!!!!!!!
+		System.out.println("**LISTAR PRODUTOS ** ");
+		var idUsuario = Long.parseLong(tokenService.getIdUsuarioHeader(headers));
+		System.out.println("Id_usuario: "+ idUsuario);
+		
+		var page = repository.findByUsuario(idUsuario);
+		
+		System.out.println(page);
 		return ResponseEntity.ok(page);
-//		exemplo de query: http://localhost:8080/clientes?size=2 ?sort=crm,desc&size=2&page=1
-//		exemplo de query: http://localhost:8080/clientes?sort=nome,desc&size=2&page=1
+
 	}
+	
+	
 
 }

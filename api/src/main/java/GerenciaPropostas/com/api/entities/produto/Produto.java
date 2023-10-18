@@ -2,6 +2,7 @@ package GerenciaPropostas.com.api.entities.produto;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +24,10 @@ public class Produto {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private long idUsuario;
+	
+	@Column(name="id_usuario")
+	private long usuario;
+	
 	private String descricao;
 	
 	private String unidade;
@@ -34,22 +38,22 @@ public class Produto {
 	}
 
 	public Produto(DadosCadastroProduto dados) {
-		this.idUsuario = 0;
+		this.usuario = 0;
 		this.descricao = dados.descricao();
 		this.unidade = dados.unidade();
 		this.valorUnitarioTabela = dados.valorUnitarioTabela();
 	}
 	
-	public void setIdUsuario(long idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setUsuario(long idUsuario) {
+		this.usuario = idUsuario;
 	}
 
 	public long getId() {
 		return id;
 	}
 
-	public long getIdUsuario() {
-		return idUsuario;
+	public long getUsuario() {
+		return usuario;
 	}
 
 	public String getDescricao() {
