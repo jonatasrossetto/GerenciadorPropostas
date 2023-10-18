@@ -20,6 +20,7 @@ public class Cliente {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private Long idUsuario;
 	private String nome;
 	private String email;
 	private String telefone;
@@ -49,6 +50,14 @@ public class Cliente {
 		if(dados.empresa() !=null) {
 			this.empresa=dados.empresa();
 		}
+	}
+
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public Long getId() {

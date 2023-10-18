@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
@@ -47,6 +48,19 @@ public class TokenService {
 			throw new RuntimeException("token JWT inválido ou expirado", exception);
 		}
 	}
+	
+	public String getIdUsuarioHeader(HttpHeaders headers) {
+		try {
+			var authorization = headers.getFirst(HttpHeaders.AUTHORIZATION).replace("Bearer ", "");
+			System.out.println("*jwt token: " + authorization);
+			var idUsuario = this.getId(authorization);
+			return idUsuario;
+		} catch (JWTVerificationException exception) {
+			throw new RuntimeException("token JWT inválido ou expirado", exception);
+		}
+	}
+	
+	
 
 	private Instant dataExpiracao() {
 		// TODO Auto-generated method stub

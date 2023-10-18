@@ -37,6 +37,11 @@ public class Usuario implements UserDetails {
 	@NotBlank
 	private String login;
 	
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", login=" + login + ", senha=" + senha + ", tipo=" + tipo + "]";
+	}
+
 	@NotBlank
 	private String senha;
 	
