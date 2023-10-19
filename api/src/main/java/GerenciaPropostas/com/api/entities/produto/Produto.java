@@ -2,6 +2,7 @@ package GerenciaPropostas.com.api.entities.produto;
 
 import java.math.BigDecimal;
 
+import GerenciaPropostas.com.api.entities.cliente.DadosAtualizacaoCliente;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -68,6 +69,16 @@ public class Produto {
 		return valorUnitarioTabela;
 	}
 	
-	
+	public void atualizarInformacoes(DadosAtualizacaoProduto dados) {
+		if (dados.descricao() != null ) {
+			this.descricao = dados.descricao();
+		}
+		if(dados.unidade() !=null) {
+			this.unidade=dados.unidade();
+		}
+		if(dados.valorUnitarioTabela() !=null) {
+			this.valorUnitarioTabela=dados.valorUnitarioTabela();
+		}
+	}
 	
 }

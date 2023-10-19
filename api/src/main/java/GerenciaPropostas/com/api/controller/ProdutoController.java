@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import GerenciaPropostas.com.api.entities.cliente.DadosAtualizacaoCliente;
 import GerenciaPropostas.com.api.entities.cliente.DadosDetalhamentoCliente;
 import GerenciaPropostas.com.api.entities.cliente.DadosListagemCliente;
+import GerenciaPropostas.com.api.entities.produto.DadosAtualizacaoProduto;
 import GerenciaPropostas.com.api.entities.produto.DadosCadastroProduto;
+import GerenciaPropostas.com.api.entities.produto.DadosDetalhamentoProduto;
 import GerenciaPropostas.com.api.entities.produto.DadosListagemProduto;
 import GerenciaPropostas.com.api.entities.produto.Produto;
 import GerenciaPropostas.com.api.entities.produto.ProdutoRepository;
@@ -67,18 +69,37 @@ public class ProdutoController {
 	public ResponseEntity listar(@RequestHeader HttpHeaders headers) {
 		//!!!!!!!!
 		//precisa verificar como paginar o retorno da listagem
+		//https://www.baeldung.com/spring-data-jpa-convert-list-page
 		//!!!!!!!!
 		System.out.println("**LISTAR PRODUTOS ** ");
 		var idUsuario = Long.parseLong(tokenService.getIdUsuarioHeader(headers));
 		System.out.println("Id_usuario: "+ idUsuario);
-		
 		var page = repository.findByUsuario(idUsuario);
-		
-		System.out.println(page);
 		return ResponseEntity.ok(page);
+	}
 
+	@PutMapping
+	@Transactional
+	public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoProduto dados, @RequestHeader HttpHeaders headers) {
+		System.out.println("**ATUALIZAR PRODUTO ** ");
+		if (!repository.existsById(dados.id())) {
+			return ResponseEntity.badRequest().body("Id de produto inexistente");
+		}
+		
+		var idUsuario = Long.parseLong(tokenService.getIdUsuarioHeader(headers));
+		System.out.println("Id_usuario: "+ idUsuario);
+		var produto = repository.getReferenceById(dados.id());
+		
+		System.out.println("produto.getUsuario(): "+produto.getUsuario());
+		
+		
+		if((produto.getUsuario()!=idUsuario)) {
+			return ResponseEntity.badRequest().body("Produto não pertence ao usuário que solicitou a requisição");
+		}
+		
+		produto.atualizarInformacoes(dados);
+		return ResponseEntity.ok(new DadosDetalhamentoProduto(produto));
 	}
 	
 	
-
 }
