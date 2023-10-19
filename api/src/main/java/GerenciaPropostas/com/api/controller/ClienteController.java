@@ -80,7 +80,6 @@ public class ClienteController {
 
 	}
 	
-
 	@PutMapping
 	@Transactional
 	public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoCliente dados, @RequestHeader HttpHeaders headers) {
