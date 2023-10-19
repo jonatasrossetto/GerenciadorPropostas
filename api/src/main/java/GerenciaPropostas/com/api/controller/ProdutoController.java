@@ -8,7 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import GerenciaPropostas.com.api.entities.cliente.Cliente;
 import GerenciaPropostas.com.api.entities.cliente.DadosAtualizacaoCliente;
 import GerenciaPropostas.com.api.entities.cliente.DadosDetalhamentoCliente;
 import GerenciaPropostas.com.api.entities.cliente.DadosListagemCliente;
@@ -92,7 +95,6 @@ public class ProdutoController {
 		
 		System.out.println("produto.getUsuario(): "+produto.getUsuario());
 		
-		
 		if((produto.getUsuario()!=idUsuario)) {
 			return ResponseEntity.badRequest().body("Produto não pertence ao usuário que solicitou a requisição");
 		}
@@ -100,6 +102,44 @@ public class ProdutoController {
 		produto.atualizarInformacoes(dados);
 		return ResponseEntity.ok(new DadosDetalhamentoProduto(produto));
 	}
+	
+	@DeleteMapping("/{id}")
+	@Transactional
+	public ResponseEntity excluir(@PathVariable Long id , @RequestHeader HttpHeaders headers) {
+		System.out.println("**APAGAR PRODUTO ** ");
+		if (!repository.existsById(id)) {
+			return ResponseEntity.badRequest().body("Id de produto inexistente");
+		}
+		
+		var idUsuario = Long.parseLong(tokenService.getIdUsuarioHeader(headers));
+		System.out.println("Id_usuario: "+ idUsuario);
+		var produto = repository.getReferenceById(id);
+		System.out.println("produto.getUsuario(): "+produto.getUsuario());
+		if((produto.getUsuario()!=idUsuario)) {
+			return ResponseEntity.badRequest().body("Produto não pertence ao usuário que solicitou a requisição");
+		}
+		repository.deleteById(id);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity detalhar(@PathVariable Long id, @RequestHeader HttpHeaders headers) {
+		System.out.println("** DETALHAR PRODUTO **");
+		if (!repository.existsById(id)) {
+			return ResponseEntity.badRequest().body("Id de produto inexistente");
+		}
+		var idUsuario = Long.parseLong(tokenService.getIdUsuarioHeader(headers));
+		System.out.println("Id_usuario: "+ idUsuario);
+		var produto = repository.getReferenceById(id);
+		System.out.println("produto.getUsuario(): "+produto.getUsuario());
+		if((produto.getUsuario()!=idUsuario)) {
+			return ResponseEntity.badRequest().body("Produto não pertence ao usuário que solicitou a requisição");
+		}
+		
+		return ResponseEntity.ok(new DadosDetalhamentoProduto(produto));
+	}
+
 	
 	
 }
