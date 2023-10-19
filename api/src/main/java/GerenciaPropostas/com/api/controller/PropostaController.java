@@ -57,5 +57,18 @@ public class PropostaController {
 		System.out.println("id da proposta cadastrada:"+proposta.getId());
 		return ResponseEntity.ok().build();
 	}
+	
+	@GetMapping
+	public ResponseEntity listar(@RequestHeader HttpHeaders headers) {
+		//!!!!!!!!
+		//precisa verificar como paginar o retorno da listagem
+		//https://www.baeldung.com/spring-data-jpa-convert-list-page
+		//!!!!!!!!
+		System.out.println("**LISTAR PROPOSTAS ** ");
+		var idUsuario = Long.parseLong(tokenService.getIdUsuarioHeader(headers));
+		System.out.println("Id_usuario: "+ idUsuario);
+		var page = repository.findByUsuario(idUsuario);
+		return ResponseEntity.ok(page);
+	}
 
 }
