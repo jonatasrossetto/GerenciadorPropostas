@@ -1,5 +1,6 @@
 package GerenciaPropostas.com.api.entities.cliente;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +21,8 @@ public class Cliente {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Long idUsuario;
+	@Column(name="id_usuario")
+	private Long usuario;
 	private String nome;
 	private String email;
 	private String telefone;
@@ -52,12 +54,12 @@ public class Cliente {
 		}
 	}
 
-	public Long getIdUsuario() {
-		return idUsuario;
+	public Long getUsuario() {
+		return usuario;
 	}
 
-	public void setIdUsuario(Long idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setUsuario(Long idUsuario) {
+		this.usuario = idUsuario;
 	}
 
 	public Long getId() {
