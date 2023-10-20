@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import GerenciaPropostas.com.api.entities.cliente.Cliente;
 import GerenciaPropostas.com.api.entities.cliente.ClienteRepository;
+import GerenciaPropostas.com.api.entities.cliente.DadosAtualizacaoCliente;
+import GerenciaPropostas.com.api.entities.cliente.DadosDetalhamentoCliente;
 import GerenciaPropostas.com.api.entities.produto.DadosDetalhamentoProduto;
+import GerenciaPropostas.com.api.entities.proposta.DadosAtualizacaoProposta;
 import GerenciaPropostas.com.api.entities.proposta.DadosCadastroProposta;
 import GerenciaPropostas.com.api.entities.proposta.DadosDetalhamentoProposta;
 import GerenciaPropostas.com.api.entities.proposta.Proposta;
@@ -110,6 +114,36 @@ public class PropostaController {
 			return ResponseEntity.badRequest().body("Proposta não pertence ao usuário que solicitou a requisição");
 		}
 		
+		return ResponseEntity.ok(new DadosDetalhamentoProposta(proposta));
+	}
+	
+	@PutMapping
+	@Transactional
+	public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoProposta dados, @RequestHeader HttpHeaders headers) {
+		System.out.println("** ATUALIZAR PROPOSTA ** ");
+		
+		if (!repository.existsById(dados.id())) {
+			return ResponseEntity.badRequest().body("Id de proposta inexistente");
+		}
+		
+		var idUsuario = Long.parseLong(tokenService.getIdUsuarioHeader(headers));
+		System.out.println("Id_usuario: "+ idUsuario);
+		var proposta = repository.getReferenceById(dados.id());
+		
+		if((proposta.getUsuario()!=idUsuario)) {
+			return ResponseEntity.badRequest().body("Proposta não pertence ao usuário que solicitou a requisição");
+		}
+		
+		Cliente cliente = clienteRepository.getReferenceById(dados.cliente());
+		if (cliente.getUsuario()!=idUsuario) {
+			return ResponseEntity.badRequest().body("O usuário da requisição não é responsável pelo cliente informado");
+		}
+		
+		System.out.println("proposta.getUsuario(): "+proposta.getUsuario());
+		
+		
+		
+		proposta.atualizarInformacoes(dados);
 		return ResponseEntity.ok(new DadosDetalhamentoProposta(proposta));
 	}
 	

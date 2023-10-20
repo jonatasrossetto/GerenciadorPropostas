@@ -1,7 +1,9 @@
 package GerenciaPropostas.com.api.entities.proposta;
 
 import java.sql.Date;
+import java.util.Objects;
 
+import GerenciaPropostas.com.api.entities.cliente.DadosAtualizacaoCliente;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -72,7 +74,20 @@ public class Proposta {
 	}
 	
 	
+	public void atualizarInformacoes(DadosAtualizacaoProposta dados) {
 	
+		if (!Objects.isNull(dados.cliente())) {
+			this.cliente = dados.cliente();
+		}
+		if (dados.titulo()!=null) {
+			this.titulo = dados.titulo();
+		}
+		if (dados.situacao()!=null) {
+			this.situacao=dados.situacao();
+		}
+		
+	
+	}
 	
 	
 	
