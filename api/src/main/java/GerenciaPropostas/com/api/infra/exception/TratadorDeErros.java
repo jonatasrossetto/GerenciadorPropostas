@@ -62,6 +62,12 @@ public class TratadorDeErros {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " + ex.getLocalizedMessage());
 	}
 
+//	@ExceptionHandler(com.auth0.jwt.exceptions.TokenExpiredException.class)
+//	public ResponseEntity tratarErroJwtExpirado() {
+//		System.out.println("** TRATAR ERRO JWT EXPIRADO **");
+//		return ResponseEntity.badRequest().body("Token JWT inválido ou expirado");
+//	}
+	
 	private record DadosErrosValidacao(String campo, String mensagem) {
 		public DadosErrosValidacao(FieldError fieldError) {
 			this(fieldError.getField(), fieldError.getDefaultMessage());

@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -52,6 +53,11 @@ public class ObservacaoDaProposta {
 
 	public Date getDataCriacao() {
 		return dataCriacao;
+	}
+
+	public void atualizarInformacoes(@Valid DadosAtualizacaoObservacaoDaProposta dados) {
+		this.observacao=dados.observacao();
+		this.dataCriacao=dados.dataCriacao();
 	}
 	
 	
