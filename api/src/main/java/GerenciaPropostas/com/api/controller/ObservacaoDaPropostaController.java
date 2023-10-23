@@ -81,14 +81,41 @@ public class ObservacaoDaPropostaController {
 		var observacao = repository.getReferenceById(id);
 		var idProposta = observacao.getIdproposta();
 		System.out.println("idProposta: "+idProposta);
+
 		// verifica se o usuário que enviou a requisição é responsável pela proposta
 		Proposta proposta = propostaRepository.getReferenceById(idProposta);
 		System.out.println("proposta.getUsuario(): "+proposta.getUsuario());
 		if (proposta.getUsuario()!=idUsuario) {
-			return ResponseEntity.badRequest().body("O usuário da requisição não é responsável pela proposta informada");
+			return ResponseEntity.badRequest().body("O usuário da requisição não é responsável pela observação informada");
 		}
 				
 		return ResponseEntity.ok(new DadosDetalhamentoObservacaoDaProposta(observacao));
+	}
+
+	@GetMapping("/listar/{idProposta}")
+	public ResponseEntity listar(@PathVariable Long idProposta, @RequestHeader HttpHeaders headers) {
+
+		System.out.println("**LISTAR OBSERVAÇÕES DA PROPOSTA INFORMADA ** ");
+		var idUsuario = Long.parseLong(tokenService.getIdUsuarioHeader(headers));
+		System.out.println("Id_usuario: "+ idUsuario);
+		System.out.println("Id da proposta solicitada: "+idProposta);
+		
+		//verifica se a proposta existe no banco de dados
+		if (!propostaRepository.existsById(idProposta)) {
+			return ResponseEntity.badRequest().body("A proposta não existe");
+		}
+		
+		// verifica se o usuário que enviou a requisição é responsável pela proposta
+		Proposta proposta = propostaRepository.getReferenceById(idProposta);
+		System.out.println("proposta.getUsuario(): "+proposta.getUsuario());
+		if (proposta.getUsuario()!=idUsuario) {
+			return ResponseEntity.badRequest().body("O usuário da requisição não é responsável pela observação informada");
+		}
+
+		
+		
+		var page = repository.findByIdproposta(idProposta);
+		return ResponseEntity.ok(page);
 	}
 	
 }
