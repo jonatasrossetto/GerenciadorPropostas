@@ -8,4 +8,8 @@ public record DadosDetalhamentoObservacaoDaProposta(
 		String observacao,
 		Date dataCriacao) {
 
+	public DadosDetalhamentoObservacaoDaProposta(ObservacaoDaProposta observacao) {
+		this(observacao.getId(),observacao.getIdproposta(),observacao.getObservacao(),observacao.getDataCriacao());
+	}
+
 }

@@ -32,5 +32,27 @@ public class ObservacaoDaProposta {
 	public ObservacaoDaProposta() {
 	}
 	
+	public ObservacaoDaProposta(DadosCadastroObservacaoDaProposta dados) {
+		this.idproposta = dados.idproposta();
+		this.observacao = dados.observacao();
+		this.dataCriacao = dados.dataCriacao();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public Long getIdproposta() {
+		return idproposta;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+	
 	
 }
