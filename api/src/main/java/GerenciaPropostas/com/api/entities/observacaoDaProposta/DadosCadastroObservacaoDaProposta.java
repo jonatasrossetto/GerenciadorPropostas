@@ -6,5 +6,4 @@ public record DadosCadastroObservacaoDaProposta(
 		Long idproposta,
 		String observacao,
 		Date dataCriacao) {
-
 }
