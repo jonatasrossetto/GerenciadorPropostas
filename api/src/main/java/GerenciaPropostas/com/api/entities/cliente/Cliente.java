@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Table(name="clientes")
 @Entity(name="Cliente")
 @Getter
-@NoArgsConstructor
+
 @AllArgsConstructor
 @EqualsAndHashCode(of="id")
 public class Cliente {

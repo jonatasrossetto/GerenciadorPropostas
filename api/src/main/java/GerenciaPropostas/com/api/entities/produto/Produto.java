@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 @Table(name="produtos")
 @Entity(name="Produto")
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of="id")
 public class Produto {

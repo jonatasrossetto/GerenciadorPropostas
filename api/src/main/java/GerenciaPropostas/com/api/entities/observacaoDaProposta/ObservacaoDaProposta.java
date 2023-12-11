@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 @Table(name="observacoes_da_proposta")
 @Entity(name="ObservacaoDaProposta")
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of="id")
 public class ObservacaoDaProposta {

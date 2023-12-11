@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 @Table(name="propostas")
 @Entity(name="Proposta")
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of="id")
 public class Proposta {
