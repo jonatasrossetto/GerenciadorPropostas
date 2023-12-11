@@ -38,4 +38,13 @@ public class ItemDaProposta {
 	public ItemDaProposta() {
 	}
 	
+	public ItemDaProposta(DadosCadastroItemDaProposta dados) {
+		this.proposta = dados.proposta();
+		this.produto=dados.produto();
+		this.quantidade=dados.quantidade();
+		this.valorUnitario=dados.valorUnitario();
+		this.prazoEntrega=dados.prazoEntrega();
+		this.dataCriacao=dados.dataCriacao();
+	}
+	
 }
