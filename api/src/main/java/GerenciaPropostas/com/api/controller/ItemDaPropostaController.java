@@ -9,15 +9,18 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import GerenciaPropostas.com.api.entities.itemDaProposta.DadosAtualizacaoItemDaProposta;
 import GerenciaPropostas.com.api.entities.itemDaProposta.DadosCadastroItemDaProposta;
 import GerenciaPropostas.com.api.entities.itemDaProposta.DadosDetalhamentoItemDaProposta;
 import GerenciaPropostas.com.api.entities.itemDaProposta.ItemDaProposta;
 import GerenciaPropostas.com.api.entities.itemDaProposta.ItemDaPropostaRepository;
+import GerenciaPropostas.com.api.entities.produto.DadosAtualizacaoProduto;
 import GerenciaPropostas.com.api.entities.produto.DadosDetalhamentoProduto;
 import GerenciaPropostas.com.api.entities.proposta.DadosCadastroProposta;
 import GerenciaPropostas.com.api.entities.proposta.Proposta;
@@ -91,6 +94,20 @@ public class ItemDaPropostaController {
 		System.out.println("Id_usuario: "+ idUsuario);
 		var itemDaProposta = repository.getReferenceById(id);
 		
+		return ResponseEntity.ok(new DadosDetalhamentoItemDaProposta(itemDaProposta));
+	}
+	
+	@PutMapping
+	@Transactional
+	public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoItemDaProposta dados, @RequestHeader HttpHeaders headers) {
+		System.out.println("**ATUALIZAR ITEM DA PROPOSTA ** ");
+		if (!repository.existsById(dados.id())) {
+			return ResponseEntity.badRequest().body("Id de item da proposta é inexistente");
+		}
+		
+		var itemDaProposta = repository.getReferenceById(dados.id());
+						
+		itemDaProposta.atualizarInformacoes(dados);
 		return ResponseEntity.ok(new DadosDetalhamentoItemDaProposta(itemDaProposta));
 	}
 	

@@ -47,4 +47,22 @@ public class ItemDaProposta {
 		this.dataCriacao=dados.dataCriacao();
 	}
 	
+	public void atualizarInformacoes(DadosAtualizacaoItemDaProposta dados) {
+		if (dados.produto() != this.produto ) {
+			this.produto = dados.produto();
+		}
+		if (dados.quantidade() != this.quantidade ) {
+			this.quantidade = dados.quantidade();
+		}
+		if (dados.valorUnitario() != this.valorUnitario ) {
+			this.valorUnitario = dados.valorUnitario();
+		}
+		if (dados.prazoEntrega() != this.prazoEntrega ) {
+			this.prazoEntrega = dados.prazoEntrega();
+		}
+		if (dados.dataCriacao() != this.dataCriacao ) {
+			this.dataCriacao = dados.dataCriacao();
+		}
+	}
+	
 }
