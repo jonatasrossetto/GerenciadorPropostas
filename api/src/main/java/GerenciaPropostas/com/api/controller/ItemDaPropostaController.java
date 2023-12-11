@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,7 +51,6 @@ public class ItemDaPropostaController {
 			repository.save(itemDaProposta);
 			System.out.println("id do item da proposta cadastrada:"+itemDaProposta.getId());
 		}
-
 		return ResponseEntity.ok().build();
 	}
 	
@@ -62,6 +62,22 @@ public class ItemDaPropostaController {
 		System.out.println("Id_proposta: "+idProposta);
 		var page = repository.findByProposta(idProposta);
 		return ResponseEntity.ok(page);
+	}
+	
+	@DeleteMapping("/{id}")
+	@Transactional
+	public ResponseEntity excluir(@PathVariable Long id , @RequestHeader HttpHeaders headers) {
+		System.out.println("**APAGAR ITEM DA PROPOSTA ** ");
+		if (!repository.existsById(id)) {
+			return ResponseEntity.badRequest().body("Id de item da proposta inexistente");
+		}
+		
+		var idUsuario = Long.parseLong(tokenService.getIdUsuarioHeader(headers));
+		System.out.println("Id_usuario: "+ idUsuario);
+		
+		repository.deleteById(id);
+		
+		return ResponseEntity.noContent().build();
 	}
 	
 }
