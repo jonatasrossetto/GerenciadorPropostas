@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import GerenciaPropostas.com.api.entities.cliente.Cliente;
 import GerenciaPropostas.com.api.entities.itemDaProposta.DadosCadastroItemDaProposta;
+import GerenciaPropostas.com.api.entities.itemDaProposta.DadosDetalhamentoItemDaProposta;
 import GerenciaPropostas.com.api.entities.itemDaProposta.ItemDaProposta;
 import GerenciaPropostas.com.api.entities.itemDaProposta.ItemDaPropostaRepository;
+import GerenciaPropostas.com.api.entities.produto.DadosDetalhamentoProduto;
 import GerenciaPropostas.com.api.entities.proposta.DadosCadastroProposta;
 import GerenciaPropostas.com.api.entities.proposta.Proposta;
 import GerenciaPropostas.com.api.infra.security.TokenService;
@@ -78,6 +79,19 @@ public class ItemDaPropostaController {
 		repository.deleteById(id);
 		
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/detalhar/{id}")
+	public ResponseEntity detalhar(@PathVariable Long id, @RequestHeader HttpHeaders headers) {
+		System.out.println("** DETALHAR ITEM DA PROPOSTA POR ID **");
+		if (!repository.existsById(id)) {
+			return ResponseEntity.badRequest().body("Id de item da proposta inexistente");
+		}
+		var idUsuario = Long.parseLong(tokenService.getIdUsuarioHeader(headers));
+		System.out.println("Id_usuario: "+ idUsuario);
+		var itemDaProposta = repository.getReferenceById(id);
+		
+		return ResponseEntity.ok(new DadosDetalhamentoItemDaProposta(itemDaProposta));
 	}
 	
 }
