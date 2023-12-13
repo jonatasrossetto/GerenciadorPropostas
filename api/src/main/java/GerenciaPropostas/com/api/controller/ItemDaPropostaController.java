@@ -20,10 +20,6 @@ import GerenciaPropostas.com.api.entities.itemDaProposta.DadosCadastroItemDaProp
 import GerenciaPropostas.com.api.entities.itemDaProposta.DadosDetalhamentoItemDaProposta;
 import GerenciaPropostas.com.api.entities.itemDaProposta.ItemDaProposta;
 import GerenciaPropostas.com.api.entities.itemDaProposta.ItemDaPropostaRepository;
-import GerenciaPropostas.com.api.entities.produto.DadosAtualizacaoProduto;
-import GerenciaPropostas.com.api.entities.produto.DadosDetalhamentoProduto;
-import GerenciaPropostas.com.api.entities.proposta.DadosCadastroProposta;
-import GerenciaPropostas.com.api.entities.proposta.Proposta;
 import GerenciaPropostas.com.api.infra.security.TokenService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

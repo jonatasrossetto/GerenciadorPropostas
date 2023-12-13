@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  mysqldb:
+    image: 'mysql:latest'
+    ports:
+      - '3307:3306'
+    environment:
+      MYSQL_DATABASE: propostas_api
+      MYSQL_ROOT_PASSWORD: 1234
+    networks:
+      - springapimysql-net
+
+  api:
+    build: .
+    ports:
+      - '8080:8080'
+    depends_on:
+      - mysqldb
+    networks:
+      - springapimysql-net
+    environment:
+      - DB_SERVER=mysqldb
+      - DB_PORT=3307
+      - DB_PASSWORD=1234
+    restart: on-failure
+
+networks:
+  springapimysql-net:

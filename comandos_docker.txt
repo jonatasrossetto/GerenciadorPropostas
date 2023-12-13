@@ -1,0 +1,27 @@
+#mostra containers rodando
+docker ps
+
+#mostra todos os containers
+docker ps -a
+
+#remove o container mysqldb
+docker rm mysqldb
+
+#roda no terminal o container mysqldb com o bd proposta_api acessado pela porta 3307
+docker run -p 3307:3306 --name mysqldb -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=test mysql
+
+#roda em background o container mysqldb com o bd proposta_api acessado pela porta 3307
+docker run -d -p 3307:3306 --name mysqldb -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=propostas_api mysql
+
+docker run --p8080:8080 --name app -e DB_SERVER=mysqldb -e DB_PORT=3306 app
+
+docker network create spring-net
+>docker network connect spring-net mysqldb
+docker container inspect mysqldb
+docker run -p 8080:8080 --net spring-net --name app -e DB_SERVER=mysqldb -e DB_PORT=3306 app
+
+#run the app container in background
+docker run -d -p 8080:8080 --net spring-net --name app -e DB_SERVER=mysqldb -e DB_PORT=3306 app
+
+#run the mysql container in background and with a volume to persist data
+docker run -d -p 3307:3306 --net spring-net -v dbvolume:/var/lib/mysql --name mysqldb -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=propostas_api mysql

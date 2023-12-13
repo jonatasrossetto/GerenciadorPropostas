@@ -1,0 +1,31 @@
+docker-compose.yaml
+version: '3.8'
+
+services:
+  mysqldb:
+    image: 'mysql:latest'
+    environment:
+      MYSQL_DATABASE: propostas_api
+      MYSQL_ROOT_PASSWORD: 1234
+    networks:
+      - springapimysql-net
+
+  api:
+    build: .
+    ports:
+      - '8080:8080'
+    depends_on:
+      - mysqldb
+    networks:
+      - springapimysql-net
+    restart: on-failure
+
+networks:
+  springapimysql-net:
+
+dockerfile
+FROM eclipse-temurin:17-jdk-alpine
+VOLUME /tmp
+COPY *.jar api-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","/api-0.0.1-SNAPSHOT.jar"]
+EXPOSE 8080
